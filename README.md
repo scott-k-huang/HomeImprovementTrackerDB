@@ -13,9 +13,12 @@ Spring Boot application for managing the database schema of the Home Improvement
 Ensure you have PostgreSQL running and create the database:
 
 ```sql
-CREATE DATABASE HomeImprovementTracker;
+CREATE DATABASE homeimprovementtracker;
 CREATE USER hitadmin WITH PASSWORD 'hitadmin';
-GRANT ALL PRIVILEGES ON DATABASE HomeImprovementTracker TO hitadmin;
+GRANT ALL PRIVILEGES ON DATABASE homeimprovementtracker TO hitadmin;
+\c homeimprovementtracker
+CREATE SCHEMA homeimprovementtracker;
+GRANT ALL PRIVILEGES ON SCHEMA homeimprovementtracker TO hitadmin;
 ```
 
 ## Project Structure
@@ -37,10 +40,11 @@ HomeImprovementTrackerDB/
 
 The application is configured in `src/main/resources/application.properties`:
 
-- **Database URL**: `jdbc:postgresql://localhost:5432/HomeImprovementTracker`
+- **Database URL**: `jdbc:postgresql://localhost:5432/homeimprovementtracker?currentSchema=homeimprovementtracker`
 - **Username**: `hitadmin`
 - **Password**: `hitadmin`
-- **Flyway**: Enabled for automatic schema migrations
+- **Schema**: `homeimprovementtracker` (instead of public)
+- **Flyway**: Enabled for automatic schema migrations with default schema set to `homeimprovementtracker`
 
 ## Running the Application
 
